@@ -24,10 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <header className="bg-gray-200 p-4">
+          <a href="" className="logo">Trello</a>
+          </header>
+        <main className="p-8">
+          {children}
+        </main>
       </body>
     </html>
   );
