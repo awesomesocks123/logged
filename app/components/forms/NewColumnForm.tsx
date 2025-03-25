@@ -12,7 +12,7 @@ export default function NewColumnForm() {
         <form onSubmit={handleNewColumn} className="max-w-xs">
             <label className='block mb-2'>
                 <span className="text-gray-600 block">Column name:</span>
-                <input type="text" placeholder="new column name"/> 
+                <input className="rounded-md" type="text" placeholder="new column name"/> 
             </label>
             <button type="submit" className="mt-2 block w-full">Create Column</button>
         </form>
