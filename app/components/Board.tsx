@@ -1,6 +1,6 @@
 'use client'; 
 import { useState } from "react";
-import Column from "./Columns";
+import Column from "./Column";
 import NewColumnForm from "./forms/NewColumnForm";
 
 const defaultColumns = [
@@ -9,16 +9,17 @@ const defaultColumns = [
     {id: 'asdf23234', name: 'Done', index:2},
 ]
 export type CardType = {
-    name: string,
-    id: string | number,
-    order: number;
+    name: string;
+    id: string | number;
+    index: number;
+    columnId: string; 
 
 }
 const defaultCards = [
-    {id: 'asdf', name:'task 1', order: 0, columnId: 'asdf'},
-    {id: 'asdf', name:'task 5', order: 0, columnId: 'asdf'},
-    {id: 'asdx', name:'task 2', order: 1, columnId: 'asdf234'},
-    {id: 'asda', name:'task 3', order: 2, columnId: 'asdf23234'},
+    {id: 'asdf', name:'task 1', index: 0, columnId: 'asdf'},
+    {id: 'asdb', name:'task 5', index: 1, columnId: 'asdf'},
+    {id: 'asdx', name:'task 2', index: 1, columnId: 'asdf234'},
+    {id: 'asda', name:'task 3', index: 2, columnId: 'asdf23234'},
 ]
 
 export default function Board() {
@@ -31,7 +32,11 @@ export default function Board() {
                 key={column.id} 
                 {... column} 
                 setCards = {setCards}
-                cards={cards.filter(c => c.columnId === column.id)}/> 
+                cards={
+                    cards
+                    .sort((a,b) => a.index - b.index )
+                    .filter(c => c.columnId === column.id)
+                }/> 
             ))}
             <NewColumnForm/>
         </div>
