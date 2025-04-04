@@ -19,3 +19,6 @@ button.primary
 input{
     @apply w-full block
 }
+button {
+    @apply cursor-pointer;
+}
