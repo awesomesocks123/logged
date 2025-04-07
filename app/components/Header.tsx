@@ -8,7 +8,7 @@ export default async function Header() {
     return(
         <header className="bg-gray-300 p-4 px-8">
             <div className="flex justify-between items-center">
-                <a href="" className="logo">Trello</a>
+                <a href="" className="logo">Loggd</a>
                 <div>
                     {session && (
                         <>
