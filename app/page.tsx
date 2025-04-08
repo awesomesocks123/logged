@@ -1,10 +1,11 @@
 import { getServerSession } from "next-auth";
-import Board from "./components/Board";
+
 import { authOptions } from "./lib/authOption";
 import LoginView from "./components/views/LoginView";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Boards from "./components/Boards";
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -16,13 +17,15 @@ export default async function Home() {
   return (
     <div>
     <h1 className="text-4xl mb-4">Your boards</h1>
-      boards go here
+      <Boards/>
+      <div className="mt-4">
       <div>
         <Link
-          className="btn primary inline-flex gap-2"
+          className="btn primary inline-flex gap-2 items-center"
           href={'/new-board'}>Create new board <FontAwesomeIcon className="h-6" icon={faArrowRight} />
           
         </Link>
+      </div>
       </div>
     {/* <Board/> */}
 
