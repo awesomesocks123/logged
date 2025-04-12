@@ -2,6 +2,10 @@
 import { useState } from "react";
 import Column from "./Column";
 import NewColumnForm from "./forms/NewColumnForm";
+import { RoomProvider } from "../liveblocks.config";
+import { LiveList } from "@liveblocks/client";
+import { ClientSideSuspense } from "@liveblocks/react";
+import Columns from "./Columns";
 
 const defaultColumns = [
     {id: 'asdf', name: 'Todo', index:0},
@@ -22,24 +26,23 @@ const defaultCards = [
     {id: 'asda', name:'task 3', index: 2, columnId: 'asdf23234'},
 ]
 
-export default function Board() {
+export default function Board({id}: {id:string}) {
     const [cards, setCards] = useState(defaultCards); 
     const [columns, setColumns] = useState(defaultColumns); 
     return (
-        <div className="flex gap-4">
-            {columns.map(column => (
-                <Column 
-                key={column.id} 
-                {... column} 
-                setCards = {setCards}
-                cards={
-                    cards
-                    .sort((a,b) => a.index - b.index )
-                    .filter(c => c.columnId === column.id)
-                }/> 
-            ))}
-            <NewColumnForm/>
-        </div>
+        <RoomProvider
+        id={id} 
+        initialPresence={{}}
+        initialStorage={{
+            columns: new LiveList([]),
+        }}>
+        <ClientSideSuspense fallback={<div>Loading...</div>}>{() => (
+            <>
+            <Columns columns={columns}/>
+            </>
+        )}
+        </ClientSideSuspense>
+        </RoomProvider>
         
     )
 }

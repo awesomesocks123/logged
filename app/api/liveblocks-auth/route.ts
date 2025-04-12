@@ -1,5 +1,6 @@
-import { liveblocksClient } from "../lib/liveblocksClient";
-import { authOptions } from "../lib/authOption";
+import { authOptions } from "@/app/lib/authOption";
+import { liveblocksClient } from "@/app/lib/liveblocksClient";
+
 import { getServerSession } from "next-auth";
 
 
