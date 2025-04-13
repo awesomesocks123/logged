@@ -34,3 +34,13 @@ export async function addEmailToBoard(boardId: string, email:string ) {
     await liveblocksClient.updateRoom(boardId, {usersAccesses});
     return true;
 }
+
+export async function updateBoard(boardId: string, updateData:{}) {
+    await liveblocksClient.updateRoom(boardId, updateData);
+    return true;
+}
+
+export async function deleteBoard(boardId: string) {
+    await liveblocksClient.deleteRoom(boardId)
+    return true;
+}
