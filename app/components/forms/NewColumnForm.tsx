@@ -30,7 +30,7 @@ export default function NewColumnForm() {
     }
 }
     return(
-        <form onSubmit={handleNewColumn} className="max-w-xs">
+        <form onSubmit={handleNewColumn} className="max-w-xs" >
             <label className='block mb-2'>
                 <span className="text-gray-600 block">Column name:</span>
                 <input className="rounded-md" type="text" placeholder="new column name"/> 

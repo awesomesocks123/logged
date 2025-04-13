@@ -45,7 +45,10 @@ export default function Columns() {
                 // 3 : 10 : 12 
             ))}
         </ReactSortable>
-        <NewColumnForm />
+            <div className="flex-shrink-0 w-[250px]">
+                <NewColumnForm />
+            </div>
+
     </div>
     )
 }
