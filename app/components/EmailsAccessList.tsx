@@ -2,25 +2,19 @@
 
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { updateBoard } from "../actions/boardActions"
+import { removeEmailFromBoard, updateBoard } from "../actions/boardActions"
 import { useRouter } from "next/navigation"
 import { RoomAccesses } from "@liveblocks/node"
 
 export default function EmailsAccessList({boardId, usersAccesses}: {boardId: string, usersAccesses:RoomAccesses}) {
     const router = useRouter()
+
+    
     async function handleDelete(emailToDelete: string) {
-        const newUsersAccesses = {...usersAccesses}
-        delete newUsersAccesses[emailToDelete] 
 
-        fetch('/api/boards'), {
-            method: 'PUT',
-            body: JSON.stringify({
-                id: boardId,
-                update: {usersAccesses: newUsersAccesses}
+        await removeEmailFromBoard(boardId, emailToDelete);
+        router.refresh() 
 
-            }),
-            headers: {'Content-Type' :'application/json'},
-        }
     }
 
 

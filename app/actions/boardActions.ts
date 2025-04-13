@@ -44,3 +44,11 @@ export async function deleteBoard(boardId: string) {
     await liveblocksClient.deleteRoom(boardId)
     return true;
 }
+
+export async function removeEmailFromBoard (boardId: string, email: string) {
+    const room = await liveblocksClient.getRoom(boardId)
+    const usersAccesses:any = room.usersAccesses;
+    usersAccesses[email] = null 
+    await liveblocksClient.updateRoom(boardId, {usersAccesses})
+    return true; 
+}
