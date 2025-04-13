@@ -22,7 +22,8 @@ export default function EmailsAccessList({boardId, usersAccesses}: {boardId: str
         <div className="max-w-xs">
             {Object.keys(usersAccesses).map (email => (
                 <div 
-                key={email} className="flex gap-2 my-4 items-center max-w-xs justify-between border-gray-300 border rounded-lg pl-4">
+                key={email} 
+                className="flex gap-2 my-4 items-center max-w-xs justify-between border-gray-300 border rounded-lg pl-4">
                 {email}
                 <button 
                 className="btn p-1"
