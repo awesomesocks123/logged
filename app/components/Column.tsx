@@ -130,7 +130,7 @@ export default function Column({id, name}: ColumnProps) {
                 </>
             ) }
             {!editMode && (
-                <NewCardForm columnId="columnId"/> 
+                <NewCardForm columnId={id}/> 
             )}
             
         </div>

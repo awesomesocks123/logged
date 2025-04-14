@@ -28,7 +28,7 @@ export default function NewCardForm({columnId}: {columnId: string}) {
 
     return (
         <form onSubmit={handleNewCardFormSubmit}>
-        <input type="text" placeholder="card name"/>
+            <input type="text" placeholder="card name"/>
         </form>
     )
 }
