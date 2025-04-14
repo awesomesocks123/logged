@@ -5,6 +5,7 @@ import { shallow } from "@liveblocks/client";
 import { FormEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faClose, faEllipsis, faEllipsisVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {default as ColumnCard} from "./Card"
 
 
 type ColumnProps = {
@@ -121,10 +122,9 @@ export default function Column({id, name}: ColumnProps) {
                 className="min-h-12"
                 ghostClass="opacity-40">
                 {columnCards.map(card=> (
-                    
-                    <div key={card.id} className='border bg-white my-2 rounded-md p-4'>
-                            <span>{card.name}</span>
-                    </div>  
+                
+                <ColumnCard key={card.id} id={card.id} name={card.name} /> 
+
                 ))}
                 </ReactSortable>            
                 </>
