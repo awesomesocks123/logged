@@ -1,5 +1,17 @@
-export default function CardPage(){
-    return(
-        <div>Card Page Poggers</div>
-    )
+import Board from "@/app/components/Board";
+import BoardPage from "../../page";
+
+type PageProps = {
+    
+    params: {
+        boardId: string;
+        cardId: string;
+    }
+
 }
+
+export default function CardPage({params}: PageProps){
+    return(
+        <BoardPage params={params}/> 
+    )
+} 
