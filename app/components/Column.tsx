@@ -15,7 +15,7 @@ type ColumnProps = {
 export default function Column({id, name}: ColumnProps) {
 
     {/* Rename Columns */}
-    const [renameMode, setRenameMode] = useState(false) ;
+    const [editMode, setEditMode] = useState(false) ;
     async function handleColumnNameSubmit(ev: FormEvent) {
         ev.preventDefault
         const input = (ev.target as HTMLFormElement).querySelector('input')
@@ -23,7 +23,7 @@ export default function Column({id, name}: ColumnProps) {
             const newName = input.value;
             updateColumn(id,newName)
             input.value = ''
-            setRenameMode(false)
+            setEditMode(false)
             
         }
     }
@@ -79,15 +79,15 @@ export default function Column({id, name}: ColumnProps) {
     return (
         <div className="w-48 bg-white shadow-md rounded-md p-2">
             <div>
-                {!renameMode && (
+                {!editMode && (
                     <div className="flex justify-between">
                         <h3>{name}</h3>
-                        <button onClick={() => setRenameMode(true)} className="text-gray-400 hover:text-gray-700 pr-2 transition-colors duration-200">
+                        <button onClick={() => setEditMode(true)} className="text-gray-400 hover:text-gray-700 pr-2 transition-colors duration-200">
                         <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
                     </div>
                 )}
-                {renameMode && (
+                {editMode && (
                     <div className="mb-8">
                         Edit name: 
                     <form onSubmit={handleColumnNameSubmit} className="mb-2">
@@ -103,7 +103,7 @@ export default function Column({id, name}: ColumnProps) {
                     </button>
                     <button 
                     className="mt-4 w-full flex justify-center items-center gap-2 uppercase text-sm font-bold text-gray-400 hover:text-gray-700 border border-transparent hover:border-gray-700 rounded px-4 py-2 transition-colors duration-200" 
-                    onClick={() => setRenameMode(false)}>
+                    onClick={() => setEditMode(false)}>
                         <FontAwesomeIcon icon={faCancel}/> 
                         cancel edit
                     </button>
@@ -112,7 +112,7 @@ export default function Column({id, name}: ColumnProps) {
 
 
             </div>
-            {!renameMode && columnCards && (
+            {!editMode && columnCards && (
                 <>
                 <ReactSortable
                 list={columnCards} 
@@ -129,7 +129,7 @@ export default function Column({id, name}: ColumnProps) {
                 </ReactSortable>            
                 </>
             ) }
-            {!renameMode && (
+            {!editMode && (
                 <NewCardForm columnId="columnId"/> 
             )}
             
