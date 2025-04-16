@@ -9,6 +9,7 @@ import { faCog } from "@fortawesome/free-solid-svg-icons/faCog";
 import { FormEvent, useState } from "react";
 import { updateBoard } from "../actions/boardActions";
 import { useRouter } from "next/navigation";
+import { BoardContextProvider } from "./BoardContext";
 
 
 export default function Board({id, name}: {id:string, name: string}) {
@@ -31,41 +32,42 @@ export default function Board({id, name}: {id:string, name: string}) {
     }
 
     return (
-        <RoomProvider
-            id={id} 
-            initialPresence={{}}
-            initialStorage={{
-                columns: new LiveList([]),
-                cards: new LiveList([]),
-            }}>
-            <ClientSideSuspense fallback={ <div>Loading...</div>}>{() => (
-                <>  
-                <div className="flex gap-2 justify-between pb-5">
-                        <div>
-                            {!renameMode && ( 
-                                <h1 
-                                className="text-2xl"
-                                onClick={() => setRenameMode(true) }>
-                                    Board: {name}
-                                </h1>
-                            )}
-                            {renameMode && (
-                                <form onSubmit={handleNameSubmit}>
-                                    <input type="text" defaultValue={name}/>
-                                </form>
-                                
-                            )}
+        <BoardContextProvider>
+            <RoomProvider
+                id={id} 
+                initialPresence={{}}
+                initialStorage={{
+                    columns: new LiveList([]),
+                    cards: new LiveList([]),
+                }}>
+                <ClientSideSuspense fallback={ <div>Loading...</div>}>{() => (
+                    <>  
+                    <div className="flex gap-2 justify-between pb-5">
+                            <div>
+                                {!renameMode && ( 
+                                    <h1 
+                                    className="text-2xl"
+                                    onClick={() => setRenameMode(true) }>
+                                        Board: {name}
+                                    </h1>
+                                )}
+                                {renameMode && (
+                                    <form onSubmit={handleNameSubmit}>
+                                        <input type="text" defaultValue={name}/>
+                                    </form>
+                                    
+                                )}
+                            </div>
+                                <Link className="flex gap-2 items-center btn" href={`/boards/${id}/settings`}>
+                                <FontAwesomeIcon icon={faCog}/>
+                                Board settings
+                                </Link>
                         </div>
-                            <Link className="flex gap-2 items-center btn" href={`/boards/${id}/settings`}>
-                            <FontAwesomeIcon icon={faCog}/>
-                            Board settings
-                            </Link>
-                    </div>
-                    <Columns />            
-                </>
-            )}
-            </ClientSideSuspense>
-        </RoomProvider>
-        
+                        <Columns />            
+                    </>
+                )}
+                </ClientSideSuspense>
+            </RoomProvider>
+        </BoardContextProvider>
     )
 }

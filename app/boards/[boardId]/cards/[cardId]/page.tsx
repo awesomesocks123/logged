@@ -1,4 +1,3 @@
-import Board from "@/app/components/Board";
 import BoardPage from "../../page";
 
 type PageProps = {
