@@ -6,7 +6,7 @@ import { BoardContext, BoardContextProps } from "../BoardContext"
 import { Card, useMutation, useStorage } from "@/app/liveblocks.config"
 import { shallow } from "@liveblocks/client"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCancel, faEllipsisVertical, faTrash, faX, faXmark, faXmarkCircle, faXRay } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeft, faCancel, faEllipsisVertical, faTrash, faX, faXmark, faXmarkCircle, faXRay } from "@fortawesome/free-solid-svg-icons"
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons/faXmarkSquare";
 import DeleteWithConfirmation from "../DeleteWithConfirmation";
 
@@ -29,6 +29,23 @@ export default function CardModal ()  {
         }
 
     },[])
+
+    const deleteCard = useMutation(({storage},id) => {
+
+        const cards = storage.get('cards')
+        const cardIndex = cards.findIndex(c => c.toObject().id === id) 
+        cards.delete(cardIndex)
+
+    },[])
+
+    function handleDelete() {
+        deleteCard(params.cardId)
+        if (setOpenCard){
+            setOpenCard(null)
+        }
+        router.push(`/boards/${params.boardId}`)
+        router.back() 
+    }
 
     useEffect(() => {
      if ( params.cardId && setOpenCard) {
@@ -68,54 +85,58 @@ export default function CardModal ()  {
             max-w-sm"
             onClick={ev => ev.stopPropagation()}
           >
-            {!editMode && ( 
-                <>
-
-                    <div className="flex items-center justify-end gap-2">
-                    
-                    {/* Edit Button */}
-                    <button 
-                        onClick={() => setEditMode(true)}
-                        className="btn flex items-center gap-2 px-4 py-1 text-gray-700 rounded-lg transition-colors"
-                    >
-                        <span>Edit</span>
-                        <FontAwesomeIcon icon={faEllipsisVertical} className="text-sm" />
-                    </button>
-                    <button 
-                        onClick={handleBackdropClick}
-                        className="text-gray-500 hover:text-gray-700 transition-colors"
-                        aria-label="Close"
-                    >
-                        <FontAwesomeIcon icon={faXmark} className="text-xl" />
-                    </button>
-                    </div>
-                    <div className="text-center">
-                        <h4>{card?.name}</h4>
-                    </div>
-                </>
-            )}
-            {editMode && (
-                <>
-                    <div className="flex justify-end mb-2">
-                        <button onClick={() => setEditMode(false)}className="text-gray-400 hover:text-gray-600">
-                            <FontAwesomeIcon icon={faXmark} size='lg' />
-                        </button>
-                        
-                    </div>
-                    <div className="mb-8">
-                        <h1 className="mb-2">Edit name:</h1> 
-                        <form onSubmit={handleNameChangeSubmit} className="mb-2">
-                            <input type="text" 
-                            defaultValue={card?.name}/> 
-                            <button className='btn mt-2 w-full' type="submit">Save</button>    
-                        </form>
-                        <div>
-                        <DeleteWithConfirmation onDelete={() => {}}/> 
-                        </div>
-                    </div>
-                </>
+            {/* Header with buttons */}
+            <div className="flex justify-between items-center">
+              {editMode ? (
+                <button 
+                  onClick={() => setEditMode(false)}
+                  className="text-gray-400 hover:text-gray-600 mb-4"
+                >
+                  <FontAwesomeIcon icon={faArrowLeft} size='lg' />
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setEditMode(true)}
+                  className="btn flex items-center gap-2 px-4 text-gray-700 rounded-lg transition-colors"
+                >
+                  <span>Edit</span>
+                  <FontAwesomeIcon icon={faEllipsisVertical} className="text-sm" />
+                </button>
+              )}
+              
+              <button 
+                onClick={handleBackdropClick}
+                className="text-gray-500 hover:text-gray-700 transition-colors mb-3"
+                aria-label="Close"
+              >
+                <FontAwesomeIcon icon={faXmark} className="text-xl" />
+              </button>
+            </div>
+            
+            {/* Content area */}
+            {editMode ? (
+              <>
+                <div className="mb-8">
+                  <h1 className="mb-2">Edit name:</h1> 
+                  <form onSubmit={handleNameChangeSubmit} className="mb-2">
+                    <input 
+                      type="text" 
+                      defaultValue={card?.name}
+                      className="w-full p-2 border rounded mb-2"
+                    /> 
+                    <button className='btn mt-2 w-full' type="submit">
+                      Save
+                    </button>    
+                  </form>
+                  <DeleteWithConfirmation onDelete={handleDelete}/> 
+                </div>
+              </>
+            ) : (
+              <div className="text-center">
+                <h4 className="text-lg font-medium">{card?.name}</h4>
+              </div>
             )}
           </div>
         </div>
       )
-}
+    }
