@@ -8,7 +8,7 @@ import { shallow } from "@liveblocks/client"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faCancel, faEllipsisVertical, faTrash, faX, faXmark, faXmarkCircle, faXRay } from "@fortawesome/free-solid-svg-icons"
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons/faXmarkSquare";
-import DeleteWithConfirmation from "../DeleteWithConfirmation";
+import DeleteWithConfirmation from '../DeleteWithConfirmation';
 
 
 
@@ -17,6 +17,7 @@ export default function CardModal ()  {
     const params = useParams()
     const {openCard, setOpenCard} = useContext<BoardContextProps>(BoardContext)
     const [editMode, setEditMode] = useState(false)
+    const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false) 
     const updateCard = useMutation(({storage}, cardId, updateData) => {
 
 
@@ -115,26 +116,33 @@ export default function CardModal ()  {
             
             {/* Content area */}
             {editMode ? (
-              <>
-                <div className="mb-8">
-                  <h1 className="mb-2">Edit name:</h1> 
-                  <form onSubmit={handleNameChangeSubmit} className="mb-2">
-                    <input 
-                      type="text" 
-                      defaultValue={card?.name}
-                      className="w-full p-2 border rounded mb-2"
-                    /> 
-                    <button className='btn mt-2 w-full' type="submit">
-                      Save
-                    </button>    
-                  </form>
-                  <DeleteWithConfirmation onDelete={handleDelete}/> 
-                </div>
-              </>
-            ) : (
-              <div className="text-center">
-                <h4 className="text-lg font-medium">{card?.name}</h4>
-              </div>
+                        <>
+                            <div className="mb-8">
+                            {!deleteConfirmationVisible && (  // Only show edit form when delete confirmation isn't visible
+                                <>
+                                <h1 className="mb-2">Edit name:</h1> 
+                                <form onSubmit={handleNameChangeSubmit} className="mb-2">
+                                    <input 
+                                    type="text" 
+                                    defaultValue={card?.name}
+                                    className="w-full p-2 border rounded mb-2"
+                                    /> 
+                                    <button className='btn mt-2 w-full' type="submit">
+                                    Save
+                                    </button>    
+                                </form>
+                                </>
+                            )}
+                            <DeleteWithConfirmation 
+                                onVisibilityChange={setDeleteConfirmationVisible}
+                                onDelete={handleDelete}
+                            /> 
+                            </div>
+                        </>
+                        ) : (
+                        <div className="text-center">
+                            <h4 className="text-lg font-medium">{card?.name}</h4>
+                        </div>
             )}
           </div>
         </div>
