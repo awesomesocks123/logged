@@ -24,14 +24,14 @@ export default function DeleteWithConfirmation({onDelete, onVisibilityChange}: P
               <h4 className="text-center font-medium text-gray-800 mb-4">Confirm deletion</h4>
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  className="flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
+                  className="flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors duration-200 "
                   onClick={() => setWantDelete(false)}
                 >
                   <FontAwesomeIcon icon={faArrowLeft} />
                   <span>Cancel</span>
                 </button>
                 <button
-                  className="flex items-center justify-center gap-2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                  className="flex items-center justify-center gap-2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-200"
                   onClick={onDelete}
                 >
                   <FontAwesomeIcon icon={faTrash} />
