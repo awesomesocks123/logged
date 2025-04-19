@@ -8,7 +8,9 @@ import { shallow } from "@liveblocks/client"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faCancel, faEllipsisVertical, faTrash, faX, faXmark, faXmarkCircle, faXRay } from "@fortawesome/free-solid-svg-icons"
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons/faXmarkSquare";
+import {faFileLines} from "@fortawesome/free-regular-svg-icons"
 import DeleteWithConfirmation from '../DeleteWithConfirmation';
+import CardDescription from "../CardDescription";
 
 
 
@@ -98,10 +100,9 @@ export default function CardModal ()  {
               ) : (
                 <button 
                   onClick={() => setEditMode(true)}
-                  className="btn flex items-center gap-2 px-4 text-gray-700 rounded-lg transition-colors"
+                  className="mb-4 text-gray-700 rounded-lg transition-colors"
                 >
-                  <span>Edit</span>
-                  <FontAwesomeIcon icon={faEllipsisVertical} className="text-sm" />
+                  <FontAwesomeIcon icon={faEllipsisVertical} className="text-xl" />
                 </button>
               )}
               
@@ -116,33 +117,42 @@ export default function CardModal ()  {
             
             {/* Content area */}
             {editMode ? (
-                        <>
-                            <div className="mb-8">
-                            {!deleteConfirmationVisible && (  // Only show edit form when delete confirmation isn't visible
-                                <>
-                                <h1 className="mb-2">Edit name:</h1> 
-                                <form onSubmit={handleNameChangeSubmit} className="mb-2">
-                                    <input 
-                                    type="text" 
-                                    defaultValue={card?.name}
-                                    className="w-full p-2 border rounded mb-2"
-                                    /> 
-                                    <button className='btn mt-2 w-full' type="submit">
-                                    Save
-                                    </button>    
-                                </form>
-                                </>
-                            )}
-                            <DeleteWithConfirmation 
-                                onVisibilityChange={setDeleteConfirmationVisible}
-                                onDelete={handleDelete}
-                            /> 
-                            </div>
-                        </>
-                        ) : (
-                        <div className="text-center">
-                            <h4 className="text-lg font-medium">{card?.name}</h4>
-                        </div>
+              <>
+                  <div className="mb-8">
+                  {!deleteConfirmationVisible && (  // Only show edit form when delete confirmation isn't visible
+                      <>
+                      <h1 className="mb-2">Edit name:</h1> 
+                      <form onSubmit={handleNameChangeSubmit} className="mb-2">
+                          <input 
+                          type="text" 
+                          defaultValue={card?.name}
+                          className="w-full p-2 border rounded mb-2"
+                          /> 
+                          <button className='btn mt-2 w-full' type="submit">
+                          Save
+                          </button>    
+                      </form>
+                      </>
+                  )}
+                  <DeleteWithConfirmation 
+                      onVisibilityChange={setDeleteConfirmationVisible}
+                      onDelete={handleDelete}
+                  /> 
+                  </div>
+              </>
+              ) : (
+              <div className="text-center">
+                  <h4 className="text-lg ">{card?.name}</h4>
+              </div>
+            )}
+            {!editMode && (
+              <div>
+                <h2 className="flex gap-2 items-center mt-3">
+                  <FontAwesomeIcon icon={faFileLines}/> 
+                  Description
+                </h2>
+                <CardDescription/> 
+              </div>
             )}
           </div>
         </div>

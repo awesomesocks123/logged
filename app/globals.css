@@ -3,6 +3,8 @@
 
 body{
     background-color: #e6e7eb;
+    min-width: 320px;
+    min-height: 480px;
 }
 
 button[type="button"],
