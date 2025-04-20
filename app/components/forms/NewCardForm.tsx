@@ -1,79 +1,52 @@
 'use client'
 import { Card, useMutation } from "@/app/liveblocks.config";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LiveObject } from "@liveblocks/client";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import uniqid from 'uniqid';
+import CardFormModal from "./CardFormModal";
 
-export default function NewCardForm({columnId}: {columnId: string}) {
+export default function NewCardForm({ columnId }: { columnId: string }) {
+    const [createCard, setCreateCard] = useState(false);
+    const [dueDate, setDueDate] = useState('');
 
-    const [createCard, setCreateCard] = useState(false)
-
-    const addCard = useMutation (({storage}, cardName) => {
+    const addCard = useMutation(({ storage }, cardName: string, description: string) => {
         return storage.get('cards').push(new LiveObject<Card>({
             name: cardName,
             id: uniqid.time(),
             columnId: columnId,
             index: 9999,
+            createdAt: new Date().toISOString(),
+            dueDate: dueDate || undefined,
+            description: description || undefined,
+        }));
+    }, [columnId, dueDate]);
 
-        }))
-        
-    },[columnId])
-    function handleNewCardFormSubmit(ev: FormEvent) {
-        ev.preventDefault();
-        const input = (ev.target as HTMLFormElement).querySelector('input');
-        if (input) {
-            const cardName = input?.value;
-            addCard(cardName)
-            input.value = '';
-            setCreateCard(false) 
-        }
+    function handleNewCardFormSubmit(cardName: string, description: string) {
+        addCard(cardName, description);
+        setDueDate('');
+        setCreateCard(false);
     }
 
     if (createCard) {
-        return ( 
-            <form 
+        return (
+            <CardFormModal 
+                onClose={() => setCreateCard(false)}
                 onSubmit={handleNewCardFormSubmit}
-                className="p-2">
-                <input
-                    type="text"
-                    placeholder="Card name"
-                    className="w-full p-2 border rounded mb-2"
-                    autoFocus
-                />
-                <div className="grid grid-cols-2 gap-1">
-                    <button
-                        type="button"
-                        onClick={() => setCreateCard(false)}
-                        className="flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors duration-200"
-                        >
-                            Cancel
-                        </button>
-                    <button
-                        type="submit"
-                        className="flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors duration-200"
-                    >
-                        Add
-                    </button>
-
-                </div>
-
-            </form>
-            
-        )
+                dueDate={dueDate}
+                onDueDateChange={setDueDate}
+            />
+        );
     }
-
-
 
     return (
         <button
             onClick={() => setCreateCard(true)}
-            className="flex items-center gap-2 w-full p-2 bg-gray-300 text-gray-6 hover:bg-gray-600 hover:text-gray-200 rounded transition-colors duration-200"
+            className="flex items-center gap-2 w-full p-2 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
         >   
             <FontAwesomeIcon icon={faPlus} size='lg'/>
-            <span> Add a card</span>
+            <span>Add a task</span>
         </button>
-        
-    )
+    );
 }

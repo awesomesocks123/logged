@@ -1,6 +1,7 @@
 'use server';
 
 import Board from "@/app/components/Board";
+import ProgressGrid from "@/app/components/ProgressGrid";
 import { liveblocksClient } from "@/app/lib/liveblocksClient";
 import { getUserEmail } from "@/app/lib/userClient";
 
@@ -24,6 +25,7 @@ export default async function BoardPage(props: PageProps) {
     return(
 
         <div>
+            <ProgressGrid />
             <Board name={boardInfo.metadata.boardName.toString()}id={boardId}/> 
         </div>
     )

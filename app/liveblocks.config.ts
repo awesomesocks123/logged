@@ -14,6 +14,9 @@ export type Column = {
 export type Card = {
   name: string;
   id: string;
+  description?: string;
+  dueDate?: string;
+  createdAt: string; 
   index: number;
   columnId: string;
 }
@@ -33,6 +36,8 @@ export const {
   useStorage,
   useMutation,
   useRoom,
+  useSelf,
+  useOthers,
 
 
   // Other hooks
