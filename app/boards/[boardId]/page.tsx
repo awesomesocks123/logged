@@ -26,7 +26,10 @@ export default async function BoardPage(props: PageProps) {
 
         <div>
             <ProgressGrid />
+            <div className="p-2">
             <Board name={boardInfo.metadata.boardName.toString()}id={boardId}/> 
+            </div>
+           
         </div>
     )
 
