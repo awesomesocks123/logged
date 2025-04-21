@@ -10,7 +10,7 @@ A collaborative task management application inspired by Trello, with boards, car
   - Create multiple boards for different projects/subjects
   - Real-time collaboration using Liveblocks
   - Rich text editing with TipTap editor
-  ![board page](pictures\boardpage.png)
+  ![board page]([pictures\boardpage.png](https://github.com/awesomesocks123/logged/blob/main/pictures/boardpage.png?raw=true))
 
 - **Card System**
   - Organize tasks into cards (Todo, WIP, Done)
