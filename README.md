@@ -64,8 +64,8 @@ A collaborative task management application inspired by Trello, with boards, car
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/task-tracker.git
-   cd task-tracker
+   git clone github.com/awesomesocks123/logged.git
+   cd logged
    ```
 
 2. Install Dependencies:
