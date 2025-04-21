@@ -1,4 +1,4 @@
-# Task Tracker App
+# logged task
 
 A collaborative task management application inspired by Trello, with boards, cards, and tasks functionality. Built with Next.js, React, and Liveblocks for real-time collaboration.
 
