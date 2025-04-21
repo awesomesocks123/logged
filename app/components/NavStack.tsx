@@ -39,11 +39,11 @@ export default function NavStack() {
             {/* Navigation links */}
             <nav className="pt-16 px-4 space-y-4">
               <Link 
-                href="/dashboard" 
+                href="/" 
                 className="block p-3 rounded-md hover:bg-gray-100"
                 onClick={() => setIsOpen(false)}
               >
-                Dashboard
+                Boards
               </Link>
               <Link
                 href="/tasks"

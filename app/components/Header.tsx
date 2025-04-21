@@ -9,7 +9,7 @@ export default async function Header() {
   const session = await getServerSession(authOptions)
 
   return (
-    <header className="bg-gray-300 p-4 px-8 sticky top-0 z-40">
+    <header className="bg-gray-300 p-4 px-8 ">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <NavStack />

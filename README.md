@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Tracker App
+
+A collaborative task management application inspired by Trello, with boards, cards, and tasks functionality. Built with Next.js, React, and Liveblocks for real-time collaboration.
+
+<!-- Replace with actual screenshot -->
+
+## Features
+
+- **Board Management**
+  - Create multiple boards for different projects/subjects
+  - Real-time collaboration using Liveblocks
+  - Rich text editing with TipTap editor
+  ![board page](pictures\boardpage.png)
+
+- **Card System**
+  - Organize tasks into cards (Todo, WIP, Done)
+  - Drag-and-drop sorting with SortableJS
+  - Markdown support for descriptions
+  ![column](pictures\column.png)
+  ![card creation](pictures\card_creation.png)
+  ![edit card](pictures\edit_card.png)
+
+- **Task Tracking**
+  - Add tasks with descriptions and due dates
+  - Task activity history/log
+  - Visual progress tracking (similar to GitHub contributions grid)
+
+- **User Authentication**
+  - Secure login via NextAuth
+  - MongoDB data persistence
+
+## Technologies Used
+
+- **Frontend**
+  - Next.js 15
+  - React 19
+  - Tailwind CSS
+  - TipTap Editor
+  - Liveblocks (for real-time collaboration)
+  - SortableJS (for drag-and-drop)
+
+- **Backend**
+  - Next.js API Routes
+  - NextAuth (Authentication)
+  - MongoDB (Database)
+  - Yjs (CRDT for collaborative editing)
+
+- **Other Libraries**
+  - React Datepicker
+  - Font Awesome Icons
+  - date-fns (date utilities)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v18 or higher)
+- MongoDB Atlas account or local MongoDB instance
+- Liveblocks account (for real-time features)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/task-tracker.git
+   cd task-tracker
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install Dependencies:
+    ```bash
+    npm install
+    ```
+    
+3. Set up environment variables 
+  Create a .env.local file based on .env.example and fill in your credentials:
 
-## Learn More
+    ```txt
+    MONGODB_URI=your_mongodb_connection_string
+    NEXTAUTH_SECRET=your_secret_key
+    NEXTAUTH_URL=http://localhost:3000
+    LIVEBLOCKS_SECRET_KEY=your_liveblocks_secret_key
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run the dev server:
+    ```
+    npm run dev
+    ```
+5. Open http://localhost:3000 in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Project Structure
+    task-tracker/
+    ├── components/       # React components
+    ├── lib/             # Utility functions
+    ├── models/          # MongoDB models
+    ├── pages/           # Next.js pages
+    │   ├── api/         # API routes
+    │   └── ...          # Page components
+    ├── public/          # Static files
+    ├── styles/          # CSS files
+    ├── .env.example     # Environment variables template
+    └── package.json     # Project dependencies
